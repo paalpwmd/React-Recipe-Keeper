@@ -221,7 +221,9 @@ const CreateRecipe = () => {
           />
         </div>
         <div className='form-group'>
-          <label>Link </label>
+          <label>
+            Link (If from another source, add the link to the original recipe)
+          </label>
           <input
             type='textarea'
             required
