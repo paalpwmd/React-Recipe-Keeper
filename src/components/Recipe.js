@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import RecipeCard from './RecipeCard';
+import Timer from './utils/Timer';
+import './Recipe.css';
+
 import Axios from 'axios';
 
 const RecipesList = (props) => {
@@ -10,7 +12,7 @@ const RecipesList = (props) => {
   }, []);
 
   return (
-    <div id='recipeSingle' className='container border border-secondary p-2'>
+    <div id='recipeSingle' className='container shadow p-2'>
       {recipe._id != null ? (
         <div>
           <div className='title text-center'>
@@ -19,21 +21,32 @@ const RecipesList = (props) => {
               <em>{recipe.description}</em>
             </p>
           </div>
-          <div>
-            <h3>Ingredients</h3>
-            <ul>
+          <div id='ingredients-list' className='w-50 mt-5 mx-auto p-2 shadow '>
+            <h2 className='text-center p-2'>Ingredients</h2>
+            <ul className='list-group list-group-flush'>
               {recipe.ingredients[0].map((item) => {
                 return (
-                  <div className='d-inline'>
-                    <li>
-                      {item.quantity + ' '}
-                      {item.measurement + ' '}
-                      {item.ingredient}
-                    </li>
-                  </div>
+                  <li className='list-group-item'>
+                    <input type='checkbox' className='mx-3'></input>
+                    {item.quantity + ' '}
+                    {item.measurement + ' '}
+                    {item.ingredient}
+                  </li>
                 );
               })}
             </ul>
+          </div>
+          <div id='instructions' className='px-5 mt-5'>
+            {recipe.instructions[0].map((item, index) => {
+              return (
+                <div className='d-inline'>
+                  <p>
+                    <strong>Step {index + 1}</strong>
+                  </p>
+                  <p>{item.step}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       ) : (

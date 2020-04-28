@@ -231,6 +231,7 @@ const CreateRecipe = () => {
             onChange={onChangeLink}
           />
         </div>
+        <input type='file' accept='image/*' capture='camera' />
 
         <div className='mt-3'>
           <button className='btn btn-primary' type='submit'>

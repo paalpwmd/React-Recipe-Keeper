@@ -1,0 +1,18 @@
+#timer {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+}
+
+div#session-label * {
+  display: inline;
+  cursor: pointer;
+}
+
+div#controls {
+  flex-direction: row;
+}
+
+#start_stop {
+  cursor: pointer;
+}
