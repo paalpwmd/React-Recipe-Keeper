@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
+import './CreateRecipe.css';
 
 const CreateRecipe = () => {
   const initialState = {
@@ -39,7 +40,10 @@ const CreateRecipe = () => {
     return function (e) {
       e.preventDefault();
       let newArr = [...recipe.ingredients];
-      newArr[index].quantity = parseInt(e.target.value);
+      let wholeNum = Math.floor(newArr[index].quantity);
+      let fraction = newArr[index].quantity - wholeNum;
+
+      newArr[index].quantity = parseInt(e.target.value) + fraction;
       setRecipe({
         ...recipe,
         ingredients: newArr,
@@ -75,7 +79,7 @@ const CreateRecipe = () => {
     let ingredients = recipe.ingredients;
     setRecipe({
       ...recipe,
-      ingredients: [...ingredients, {}],
+      ingredients: [...ingredients, { quantity: 0 }],
     });
   };
 
@@ -116,6 +120,20 @@ const CreateRecipe = () => {
     });
   };
 
+  const onAddFraction = (index, value) => {
+    return function (e) {
+      e.preventDefault();
+      let newArr = [...recipe.ingredients];
+      let fraction = eval(e.target.value);
+      console.log(fraction);
+      newArr[index].quantity = Math.floor(newArr[index].quantity) + fraction;
+      setRecipe({
+        ...recipe,
+        ingredients: newArr,
+      });
+    };
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const myRecipe = recipe;
@@ -149,7 +167,17 @@ const CreateRecipe = () => {
           <label>Ingredients</label>
           {recipe.ingredients.map((x, index) => {
             return (
-              <div>
+              <div className='ingredientAdd'>
+                <label className='ml-3 mb-4' htmlFor='ingredient'>
+                  Ingredient
+                </label>
+                <input
+                  required
+                  type='text'
+                  className='ml-3 mb-4'
+                  name='ingredient'
+                  onChange={onChangeIngredient(index, x.ingredient)}
+                />
                 <label className='ml-3 mb-4' htmlFor='quantity'>
                   Quantity
                 </label>
@@ -158,23 +186,44 @@ const CreateRecipe = () => {
                   className='ml-3 mb-4'
                   onChange={onChangeQuantity(index, x.quantity)}
                 />
+                <select
+                  className='form-control d-inline mb-4 ml-3'
+                  id='selFraction'
+                  onChange={onAddFraction(index, x.quantity)}
+                >
+                  <option></option>
+                  <option>1/4</option>
+                  <option>1/3</option>
+                  <option>1/2</option>
+                  <option>2/3</option>
+                  <option>3/4</option>
+                </select>
                 <label htmlFor='measurement' className='ml-3 mb-4'>
                   Measurement
                 </label>
-                <input
-                  type='text'
-                  className='ml-3 mb-4'
+
+                <select
+                  className='ml-3 mb-4 form-control d-inline w-25 mb-4'
                   onChange={onChangeMeasurement(index, x.measurement)}
-                />
-                <label className='ml-3 mb-4' htmlFor='ingredient'>
-                  Ingredient
-                </label>
-                <input
-                  type='text'
-                  className='ml-3 mb-4'
-                  name='ingredient'
-                  onChange={onChangeIngredient(index, x.ingredient)}
-                />
+                >
+                  <option></option>
+                  <option>Each</option>
+                  <option>Cup</option>
+                  <option>Tablespoon</option>
+                  <option>Teaspoon</option>
+                  <option>Gallon</option>
+                  <option>Quart</option>
+                  <option>Pint</option>
+                  <option>Liter</option>
+                  <option>Milliliter</option>
+                  <option>Inch</option>
+                  <option>Pound</option>
+                  <option>Ounce</option>
+                  <option>Fluid Ounce</option>
+                  <option>Centimeter</option>
+                  Millimeter
+                  <option>Fluid Ounce</option>
+                </select>
               </div>
             );
           })}
@@ -215,7 +264,6 @@ const CreateRecipe = () => {
           <label>Notes </label>
           <input
             type='textarea'
-            required
             className='form-control'
             onChange={onChangeNotes}
           />
@@ -226,12 +274,10 @@ const CreateRecipe = () => {
           </label>
           <input
             type='textarea'
-            required
             className='form-control'
             onChange={onChangeLink}
           />
         </div>
-        <input type='file' accept='image/*' capture='camera' />
 
         <div className='mt-3'>
           <button className='btn btn-primary' type='submit'>

@@ -12,7 +12,7 @@ const RecipesList = (props) => {
   }, []);
 
   return (
-    <div id='recipeSingle' className='container shadow p-2'>
+    <div id='recipeSingle' className='container shadow p-2 mb-5 pb-3'>
       {recipe._id != null ? (
         <div>
           <div className='title text-center'>
@@ -28,8 +28,10 @@ const RecipesList = (props) => {
                 return (
                   <li className='list-group-item'>
                     <input type='checkbox' className='mx-3'></input>
-                    {item.quantity + ' '}
-                    {item.measurement + ' '}
+                    {item.quantity != undefined ? item.quantity + ' ' : ''}
+                    {item.measurement != undefined
+                      ? item.measurement + ' '
+                      : ''}
                     {item.ingredient}
                   </li>
                 );
@@ -40,9 +42,10 @@ const RecipesList = (props) => {
             {recipe.instructions[0].map((item, index) => {
               return (
                 <div className='d-inline'>
-                  <p>
+                  <p className='d-flex align-items-center'>
                     <strong>Step {index + 1}</strong>
                   </p>
+
                   <p>{item.step}</p>
                 </div>
               );

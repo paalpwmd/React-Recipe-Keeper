@@ -16,14 +16,14 @@ const Navbar = () => {
           </li>
           <li className='navbar-item'>
             <Link to='/create' className='nav-link'>
-              Create Recipe Log
+              Add Recipe
             </Link>
           </li>
-          <li className='navbar-item'>
+          {/* <li className='navbar-item'>
             <Link to='/user' className='nav-link'>
               Create User
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

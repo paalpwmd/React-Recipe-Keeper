@@ -1,0 +1,28 @@
+/* Desktop Styles */
+@media only screen and (min-width: 1025px) {
+  .ingredientAdd {
+    display: flex;
+    align-items: center;
+    flex-wrap: row-wrap;
+  }
+  #selFraction {
+    width: 100px;
+  }
+}
+
+/* Mobile and Tablet Styles */
+@media only screen and (max-width: 1024px) {
+  .ingredientAdd {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ingredientAdd *,
+  #selFraction {
+    width: 90%;
+  }
+
+  button.btn {
+    width: 100% !important;
+  }
+}
