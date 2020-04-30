@@ -17,7 +17,7 @@ const RecipesList = (props) => {
         <div>
           <div className='title text-center'>
             <h1>{recipe.title}</h1>
-            <p>
+            <p className='w-75 m-auto text-left'>
               <em>{recipe.description}</em>
             </p>
           </div>
