@@ -1,5 +1,6 @@
 const router = require('express').Router();
-let Recipe = require('../models/Recipe.model');
+const path = require('path')
+let Recipe = require(path.join(__dirname + '/../models/recipe.model.js'));
 
 router.route('/').get((req, res) => {
   Recipe.find()
